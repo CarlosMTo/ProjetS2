@@ -18,12 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\interface.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\interface.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{C43E41EF-E0FE-4E1E-9F9E-A473EC2C663F}</ProjectGuid>
@@ -120,6 +114,12 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="G:\Users\Carlos Torres\USherbrooke\Jacob Fortin - Projet S2\GI_S2_PROJET\interface.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="G:\Users\Carlos Torres\USherbrooke\Jacob Fortin - Projet S2\GI_S2_PROJET\interface.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

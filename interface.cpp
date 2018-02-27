@@ -18,7 +18,7 @@ string interface::chercherCondiment(int index) {
 	return condiments[index];
 }
 
-interface::interface(){//  constructeur
+interface::interface(){
 	positionecran = 0;
 	selectionecran();
 }   //test
