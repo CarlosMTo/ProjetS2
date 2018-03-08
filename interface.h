@@ -20,6 +20,7 @@ public:
 	double calcul_prix();
 	double prix1;
 	double prix_base;
+
 private:
 	bool choisis[TAILLE_CONDIMENTS] = {false,false, false, false, false, false, false, false, false, false};
 	double prix[TAILLE_CONDIMENTS] = { 0.50 , 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50,0 };
