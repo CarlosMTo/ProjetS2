@@ -17,6 +17,9 @@ string interface::chercherGrandeur(int index){
 string interface::chercherCondiment(int index) {
 	return condiments[index];
 }
+string interface::chercherViande(int index) {
+	return viandes[index];
+}
 
 interface::interface(){
 	positionecran = 0;
@@ -44,13 +47,13 @@ void interface::selectionecran()
 void interface::ecrandacceuil() {
 
 	int entree;
-
+	system("cls");
 	printf("\n");
 	printf("------------------------------------------------------\n");
 	printf("Bienvenue chez Uberto pizza (Appuyer sur 'n' pour continuer) \n");
 	printf("------------------------------------------------------\n");
 	printf("\n");
-	printf("appuyer sur 'n' pour demarrer votre commade\n");
+	printf("appuyer sur 'n' pour demarrer votre commande\n");
 	printf("appuyer sur 'x' pour quitter le programme\n");
 
 	entree = _getch();
@@ -85,6 +88,10 @@ void interface::ecranconfirmationcommande() {
 		if (choisis[n]) {
 			cout<< chercherCondiment(n)<<endl;
 			prix1 += prix[n];
+		}
+		if (choisisViande[n]) {
+			cout << chercherViande(n) << endl;
+			prix1 += prixViande[n];
 		}
 	}
 	cout << endl;
@@ -148,7 +155,7 @@ void interface::ecrancondiment() {
 	case 'n':
 		if (positioncurseur ==TAILLE_CONDIMENTS-1){
 			positioncurseur = 0;
-			ecranconfirmationcommande();
+			ecranviande();
 		}
 		else {
 			if (!choisis[positioncurseur]) {
@@ -167,6 +174,64 @@ void interface::ecrancondiment() {
 	}
 	ecrancondiment();
 } 
+
+void interface::ecranviande() {
+	int n;
+	int entree;
+	//string Condiments ="";
+	system("cls");
+	cout << "choisisez vos viandes:" << endl;
+	for (n = 0; n < TAILLE_VIANDES; n++) {
+		if (n == positioncurseur) {
+			cout << "=>   ";
+		}
+		else {
+			cout << "     ";
+		};
+
+		cout << n << " : " << chercherViande(n);
+		if (choisisViande[n] == true) {
+			cout << " [ x ]";
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << "w : haut, s : bas, n : selectionner, x : quitter" << endl;
+	entree = _getch();
+	switch (entree) {
+	case 's':
+		if (positioncurseur < TAILLE_CONDIMENTS - 1)
+			positioncurseur++;
+		break;
+	case 'w':
+		if (positioncurseur > 0)
+			positioncurseur--;
+		break;
+	case 'n':
+		if (positioncurseur == TAILLE_CONDIMENTS - 1) {
+			positioncurseur = 0;
+			ecranconfirmationcommande();
+		}
+		else {
+			if (!choisisViande[positioncurseur]) {
+				choisisViande[positioncurseur] = true;
+			}
+			else
+				if (choisisViande[positioncurseur]) {
+					choisisViande[positioncurseur] = false;
+				}
+
+		}
+		break;
+	case 'x':
+		exit(EXIT_SUCCESS);
+		break;
+	}
+	ecranviande();
+}
 
 void interface::ecrantaille() {
 	int n;
