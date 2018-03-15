@@ -1,0 +1,10 @@
+can_b2_circuit_bit : 
+
+    - can_b2_jtclk.bit
+      convient pour la programmation par le port jtag (via USB).
+    - can_b2_cclk.bit
+      convient pour la programmation de la ROM de la carte
+ 
+
+
+

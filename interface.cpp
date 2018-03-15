@@ -1,10 +1,12 @@
 #include "interface.h"
+#include "CommunicationFPGA.h"
 #include <stdlib.h>
 #include <iostream>
 #include <conio.h>
 #include <string>
 
 using namespace std;
+
 string interface::chercherGrandeurPizza() {
 	return grandeurPizza;
 }
@@ -22,6 +24,7 @@ string interface::chercherViande(int index) {
 }
 
 interface::interface(){
+	initFPGA();
 	positionecran = 0;
 	positioncurseur = 0;
 	selectionecran();
@@ -285,10 +288,84 @@ void interface::ecrantaille() {
 	interface::ecrantaille();
 }
 
+bool interface::initFPGA()
+{
+	int val;
+	bool lOk = true;
+
+	if (!fpga.estOk())
+	{
+		cout << fpga.messageErreur() << endl;
+		lOk = false;
+	}
+
+	if (!fpga.lireRegistre(SW, val))
+	{
+		cout << fpga.messageErreur() << endl;
+		lOk = false;
+	}
+
+	cout << "SW: " << hex << val << endl;
+
+	if (!fpga.lireRegistre(BTN, val))
+	{
+		cout << fpga.messageErreur() << endl;
+		lOk = false;
+	}
+
+	cout << "BTN: " << hex << val << endl;
+
+	val = 0xac;
+	if (!fpga.ecrireRegistre(LD, val))
+	{
+		cout << fpga.messageErreur() << endl;
+		lOk = false;
+	}
+
+	val = 0xa;
+	if (!fpga.ecrireRegistre(AN3, val))
+	{
+		cout << fpga.messageErreur() << endl;
+		lOk = false;
+	}
+
+	val++;
+	if (!fpga.ecrireRegistre(AN2, val))
+	{
+		cout << fpga.messageErreur() << endl;
+		lOk = false;
+	}
+
+	val++;
+	if (!fpga.ecrireRegistre(AN1, val))
+	{
+		cout << fpga.messageErreur() << endl;
+		lOk = false;
+	}
+
+	val++;
+
+	if (!fpga.ecrireRegistre(AN0, val))
+	{
+		cout << fpga.messageErreur() << endl;
+		lOk = false;
+	}
+
+	return lOk;
+};
+
+int interface::lireRegistre(int registre)
+{
+	int lVal;
+	fpga.lireRegistre(registre, lVal);
+	//lVal = 127;
+	return lVal;
+}
 
 int main()
 {
 	interface();
-    return 0;
+	return 0;
 }
+
 
