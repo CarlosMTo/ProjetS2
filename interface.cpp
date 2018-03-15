@@ -104,8 +104,10 @@ void interface::ecranconfirmationcommande() {
 	switch (entree) {
 	case 'w':
 		for (int i = 0;i < 10;i++) {
+			choisisViande[i] = false;
 			choisis[i] = false;
 		}
+		
 	system("cls");
 	positioncurseur = 0;
 	ecrandacceuil();
