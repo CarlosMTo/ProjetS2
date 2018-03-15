@@ -44,6 +44,13 @@ void interface::selectionecran()
 	}
 };
 
+char interface::interaction() {
+	char sortie;
+	sortie = _getch();
+
+	return sortie;
+};
+
 void interface::ecrandacceuil() {
 
 	int entree;
@@ -56,7 +63,7 @@ void interface::ecrandacceuil() {
 	printf("appuyer sur 'n' pour demarrer votre commande\n");
 	printf("appuyer sur 'x' pour quitter le programme\n");
 
-	entree = _getch();
+	entree = interaction();
 	switch (entree) {
 	case 'n':
 
@@ -100,7 +107,7 @@ void interface::ecranconfirmationcommande() {
 	cout << "Votre total est : $" << prix1<< endl;
 
 	cout << "w : nouvelle commande x : quitter" << endl;
-	entree = _getch();
+	entree = interaction();
 	switch (entree) {
 	case 'w':
 		for (int i = 0;i < 10;i++) {
@@ -144,7 +151,7 @@ void interface::ecrancondiment() {
 	cout << endl;
 	cout << endl;
 	cout << "w : haut, s : bas, n : selectionner, x : quitter" << endl;
-	entree = _getch();
+	entree = interaction();
 	switch (entree) {
 	case 's':
 		if (positioncurseur < TAILLE_CONDIMENTS - 1)
@@ -202,7 +209,7 @@ void interface::ecranviande() {
 	cout << endl;
 	cout << endl;
 	cout << "w : haut, s : bas, n : selectionner, x : quitter" << endl;
-	entree = _getch();
+	entree = interaction();
 	switch (entree) {
 	case 's':
 		if (positioncurseur < TAILLE_CONDIMENTS - 1)
@@ -255,7 +262,7 @@ void interface::ecrantaille() {
 	cout << endl; 
 	cout << endl;
 	cout << "w : haut, s : bas, n : selectionner, x : quitter" << endl;
-	entree = _getch();
+	entree = interaction();
 	switch (entree) {
 		case 's' :
 			if (positioncurseur < TAILLE_SIZE-1)

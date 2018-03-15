@@ -9,6 +9,7 @@ public:
 	~interface();
 
 	void selectionecran();
+	char interaction();
 	void ecrandacceuil();
 	void ecrantaille();
 	void ecrancondiment();
