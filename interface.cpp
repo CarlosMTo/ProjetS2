@@ -20,6 +20,10 @@ string interface::chercherCondiment(int index) {
 string interface::chercherViande(int index) {
 	return viandes[index];
 }
+string interface::chercherFromage(int index) {
+
+	return fromages[index];
+}
 
 interface::interface(){
 	positionecran = 0;
@@ -101,6 +105,14 @@ void interface::ecranconfirmationcommande() {
 			prix1 += prixViande[n];
 		}
 	}
+	for (n = 0; n < TAILLE_FROMAGE; n++) {
+
+		if (choisisFromage[n]) {
+			cout << chercherFromage(n) << endl;
+			prix1 += prixFromage[n];
+		}
+	}
+
 	cout << endl;
 	cout << endl;
 	cout << endl;
@@ -110,11 +122,14 @@ void interface::ecranconfirmationcommande() {
 	entree = interaction();
 	switch (entree) {
 	case 'w':
-		for (int i = 0;i < 10;i++) {
+		for (int i = 0;i < TAILLE_CONDIMENTS;i++) {
 			choisisViande[i] = false;
 			choisis[i] = false;
 		}
-		
+		for (int i = 0; i < TAILLE_FROMAGE; i++) {
+			choisisFromage[i] = false;
+
+		}
 	system("cls");
 	positioncurseur = 0;
 	ecrandacceuil();
@@ -222,7 +237,7 @@ void interface::ecranviande() {
 	case 'n':
 		if (positioncurseur == TAILLE_CONDIMENTS - 1) {
 			positioncurseur = 0;
-			ecranconfirmationcommande();
+			ecranfromage();
 		}
 		else {
 			if (!choisisViande[positioncurseur]) {
@@ -241,6 +256,71 @@ void interface::ecranviande() {
 	}
 	ecranviande();
 }
+
+void interface::ecranfromage() {
+	int n;
+	int entree;
+	
+	system("cls");
+	cout << "choisisez votre fromage:" << endl;
+	for (n = 0; n < TAILLE_FROMAGE; n++) {
+		if (n == positioncurseur) {
+			cout << "=>   ";
+		}
+		else {
+			cout << "     ";
+		};
+
+		cout << n << " : " << chercherFromage(n);
+		if (choisisFromage[n] == true) {
+			cout << " [ x ]";
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << "w : haut, s : bas, n : selectionner, x : quitter" << endl;
+	entree = interaction();
+	switch (entree) {
+	case 's':
+		if (positioncurseur < TAILLE_FROMAGE - 1)
+			positioncurseur++;
+		break;
+	case 'w':
+		if (positioncurseur > 0)
+			positioncurseur--;
+		break;
+	case 'n':
+		if (positioncurseur == TAILLE_FROMAGE - 1) {
+			positioncurseur = 0;
+			ecranconfirmationcommande();
+		}
+		else {
+			if (!choisisFromage[positioncurseur]) {
+				choisisFromage[positioncurseur] = true;
+			}
+			else
+				if (choisisFromage[positioncurseur]) {
+					choisisFromage[positioncurseur] = false;
+				}
+
+		}
+		break;
+	case 'x':
+		exit(EXIT_SUCCESS);
+		break;
+	}
+	ecranfromage();
+}
+
+
+
+
+
+
+
 
 void interface::ecrantaille() {
 	int n;
