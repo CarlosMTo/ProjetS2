@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\CommunicationFPGA.h" />
     <ClInclude Include="..\interface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\interface.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\CommunicationFPGA.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -12,12 +12,8 @@
 *                  Université de Sherbrooke  
 */
 
-
-
 #ifndef COMMUNICATIONFPGA_H
 #define COMMUNICATIONFPGA_H
-
-#include "CommunicationFPGA.lib"
 
 class CommunicationFPGA {
 public:

@@ -47,17 +47,42 @@ void interface::selectionecran()
 	}
 };
 
-char interface::interaction() {
-	char sortie;
-	sortie = _getch();
-
-	return sortie;
+int interface::interaction() {
+	int sortie, val = 0;
+	while (1) {
+		//printf("%d", val);
+		if (_kbhit() == 0) {
+			fpga.lireRegistre(BTNR, val);
+			fpga.sleep(20);
+			switch (int(val))
+			{
+			case 1:
+				return 'n';
+				break;
+			case 2:
+				return 's';
+				break;
+			case 4:
+				return 'w';
+				break;
+			case 8:
+				return 'x';
+				break;
+			default:
+				break;
+			}
+		} else {
+			sortie = _getch();
+			return sortie;
+		}
+		
+	}
 };
 
 void interface::ecrandacceuil() {
 
 	int entree;
-	system("cls");
+	//system("cls");
 	printf("\n");
 	printf("------------------------------------------------------\n");
 	printf("Bienvenue chez Uberto pizza (Appuyer sur 'n' pour continuer) \n");
@@ -299,7 +324,7 @@ bool interface::initFPGA()
 		lOk = false;
 	}
 
-	if (!fpga.lireRegistre(SW, val))
+	if (!fpga.lireRegistre(SWR, val))
 	{
 		cout << fpga.messageErreur() << endl;
 		lOk = false;
@@ -307,7 +332,7 @@ bool interface::initFPGA()
 
 	cout << "SW: " << hex << val << endl;
 
-	if (!fpga.lireRegistre(BTN, val))
+	if (!fpga.lireRegistre(BTNR, val))
 	{
 		cout << fpga.messageErreur() << endl;
 		lOk = false;

@@ -1,6 +1,5 @@
 #include <string> 
 #include "CommunicationFPGA.h"
-//#include "CommunicationFPGA.lib"
 
 using namespace std;
 
@@ -15,7 +14,7 @@ public:
 
 	bool initFPGA();
 	void selectionecran();
-	char interaction();
+	int interaction();
 	void ecrandacceuil();
 	void ecrantaille();
 	int lireRegistre(int registre);
@@ -32,7 +31,8 @@ public:
 	double prix_base;
 
 private:
-	enum Registre { SW = 8, BTN = 9, LD = 10, AN0 = 11, AN1 = 12, AN2 = 13, AN3 = 14 };
+	//enum Registre { SW = 8, BTN = 9, LD = 10, AN0 = 11, AN1 = 12, AN2 = 13, AN3 = 14 };
+	enum Registre { SW = 8, BTN = 9, LD = 10, SWR = 1, BTNR = 0, AN0 = 11, AN1 = 12, AN2 = 13, AN3 = 14};
 	bool choisis[TAILLE_CONDIMENTS] = {false,false, false, false, false, false, false, false, false, false};
 	bool choisisViande[TAILLE_CONDIMENTS] = { false,false, false, false, false, false, false, false, false, false };
 	double prix[TAILLE_CONDIMENTS] = { 0.50 , 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50,0 };
