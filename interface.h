@@ -23,6 +23,7 @@ public:
 	void ecranviande();
 	void ecranfromage();
 	void ecranconfirmationcommande();
+	int detection_phoneme();
 	string chercherGrandeur(int index);
 	string chercherCondiment(int index);
 	string chercherViande(int index);

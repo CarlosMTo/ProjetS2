@@ -51,35 +51,49 @@ void interface::selectionecran()
 	}
 };
 
-int interface::interaction() {
-	int sortie, val = 0;
+int interface::detection_phoneme() {
 	while (1) {
-		//printf("%d", val);
-		if (_kbhit() == 0) {
-			fpga.lireRegistre(BTNR, val);
-			fpga.sleep(20);
-			switch (int(val))
-			{
-			case 1:
-				return 'n';
-				break;
-			case 2:
-				return 's';
-				break;
-			case 4:
-				return 'w';
-				break;
-			case 8:
-				return 'x';
-				break;
-			default:
-				break;
-			}
-		} else {
+		int can0, can1, can2, can3;
+		fpga.lireRegistre(3, can0);
+		fpga.lireRegistre(4, can1);
+		fpga.lireRegistre(5, can2);
+		fpga.lireRegistre(6, can3);
+		fpga.sleep(20);
+		printf("%d,%d,%d,%d", can0, can1, can2, can3);
+	}
+};
+
+int interface::interaction() {
+	int sortie, reponse, val = 0;
+	while (1) {
+		fpga.lireRegistre(BTNR, val);
+		//fpga.sleep(100);
+		if (_kbhit() != 0 && val != 0) 
+		{
 			sortie = _getch();
 			return sortie;
 		}
-		
+		else if (val != 0)
+		{
+			reponse = detection_phoneme();
+			switch (reponse) {
+				case 1:
+					return 'n';
+					break;
+				case 2:
+					return 's';
+					break;
+				case 4:
+					return 'w';
+					break;
+				case 8:
+					return 'x';
+					break;
+				default:
+					break;
+			}
+		}
+		val = 0;
 	}
 };
 
@@ -97,20 +111,21 @@ void interface::ecrandacceuil() {
 
 	entree = interaction();
 	switch (entree) {
-	case 'n':
+		case 'n':
 
+			system("cls");
+			positioncurseur = 0;
+			positionecran = 1;
+			selectionecran();
+			break;
 
-		system("cls");
-		positioncurseur = 0;
-		positionecran = 1;
-		selectionecran();
-		break;
+		case 'x':
 
-	case 'x':
-
-		cout << "je quitte";
-		exit(EXIT_SUCCESS);
-		break;
+			cout << "je quitte";
+			exit(EXIT_SUCCESS);
+			break;
+		default:
+			system("cls");
 	}
 	ecrandacceuil();
 }
