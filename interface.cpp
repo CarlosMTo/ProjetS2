@@ -4,6 +4,7 @@
 #include <iostream>
 #include <conio.h>
 #include <string>
+#include <chrono>
 
 using namespace std;
 
@@ -52,15 +53,58 @@ void interface::selectionecran()
 };
 
 int interface::detection_phoneme() {
-	while (1) {
-		int can0, can1, can2, can3;
-		fpga.lireRegistre(3, can0);
-		fpga.lireRegistre(4, can1);
-		fpga.lireRegistre(5, can2);
-		fpga.lireRegistre(6, can3);
-		fpga.sleep(20);
-		printf("%d,%d,%d,%d", can0, can1, can2, can3);
-	}
+	
+		int can0, can1, can2, can3, Ncan0, Ncan1, Ncan2, Ncan3;
+		Ncan0 = 0;
+		Ncan1 = 0;
+		Ncan2 = 0;
+		Ncan3 = 0;
+		for (int i = 0; i < 10; i++) {
+			
+			fpga.sleep(5);
+			fpga.lireRegistre(3, can0);
+			fpga.sleep(5);
+			fpga.lireRegistre(4, can1);
+			fpga.sleep(5);
+			fpga.lireRegistre(5, can2);
+			fpga.sleep(5);
+			fpga.lireRegistre(6, can3);
+			fpga.sleep(5);
+			if (can0 > 150)
+				Ncan0 += 1;
+			if (can1 > 150)
+				Ncan1 += 1;
+			if (can2 > 150)
+				Ncan2 += 1;
+			if (can3 > 150)
+				Ncan3 += 1;
+		}
+
+		
+			
+
+
+		if (Ncan0 >= aa[0] && Ncan1 >= aa[1] && Ncan2 >= aa[2] && Ncan3 >= aa[3] ) {
+			fpga.ecrireRegistre(8, 0x10);
+			return 1;//a
+		}
+		if (Ncan0 >= ee[0] && Ncan1 >= ee[1] && Ncan2 >= ee[2] && Ncan3 >= ee[3]) {
+			fpga.ecrireRegistre(8, 0x01);
+			return 2;//e
+
+		}
+		if (Ncan0 >= ii[0] && Ncan1 >= ii[1] && Ncan2 >= ii[2] && Ncan3 >= ii[3]) {
+			fpga.ecrireRegistre(7, 0x10);
+			return 4;//i
+		}
+		if (Ncan0 >= er[0] && Ncan1 >= er[1] && Ncan2 >= er[2] && Ncan3 >= er[3]) {
+			fpga.ecrireRegistre(7, 0x01);
+			return 8;//er (ferme)
+		}
+		return 0;
+		
+		//cout << "reg 1: "<< can0 << " reg 2: "<< can1 << " reg 3: " << can2 << " reg 4: " << can3 << endl;
+
 };
 
 int interface::interaction() {
@@ -68,7 +112,7 @@ int interface::interaction() {
 	while (1) {
 		fpga.lireRegistre(BTNR, val);
 		//fpga.sleep(100);
-		if (_kbhit() != 0 && val != 0) 
+		if (_kbhit() != 0) 
 		{
 			sortie = _getch();
 			return sortie;
@@ -409,10 +453,10 @@ void interface::ecrantaille() {
 }
 
 bool interface::initFPGA()
-{
+{ 
 	int val;
 	bool lOk = true;
-
+	
 	if (!fpga.estOk())
 	{
 		cout << fpga.messageErreur() << endl;
@@ -470,9 +514,11 @@ bool interface::initFPGA()
 		cout << fpga.messageErreur() << endl;
 		lOk = false;
 	}
-
+	
 	return lOk;
+	
 };
+
 
 int interface::lireRegistre(int registre)
 {

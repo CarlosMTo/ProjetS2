@@ -36,7 +36,12 @@ public:
 
 private:
 	//enum Registre { SW = 8, BTN = 9, LD = 10, AN0 = 11, AN1 = 12, AN2 = 13, AN3 = 14 };
-	enum Registre { SW = 8, BTN = 9, LD = 10, SWR = 1, BTNR = 0, AN0 = 11, AN1 = 12, AN2 = 13, AN3 = 14};
+	enum Registre { BTN = 9, LD = 10, SWR = 1, BTNR = 0, AN0 = 11, AN1 = 12, AN2 = 13, AN3 = 14};
+	int aa[4] = { 6,0,0,0 };
+	int ee[4] = { 0,6,0,0 };
+	int ii[4] = { 0,0,6,0 };
+	int er[4] = { 0,0,0,6 };
+
 	bool choisis[TAILLE_CONDIMENTS] = {false,false, false, false, false, false, false, false, false, false};
 	bool choisisViande[TAILLE_CONDIMENTS] = { false,false, false, false, false, false, false, false, false, false };
 	bool choisisFromage[TAILLE_FROMAGE] = { false, false, false, false, false,false, false, false};
